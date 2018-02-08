@@ -1,0 +1,22 @@
+syntax="proto3";
+package Model;
+message StudentResponse{
+    int32 sid=1;
+    int32 age=2;
+    string name=3;
+    string telephone=4;
+    string address=5;
+}
+message StudentRequest{
+    int32 sid=1;
+}
+message ResultResponse{
+    int32 affectrows=1;
+    string errorinfo=2;
+}
+service SelfManage{
+    rpc StudentAdd(StudentResponse)returns(ResultResponse){};//gRPC简单模式
+    rpc GetHelloTest(stream StudentRequest)returns(ResultResponse){};//客户端流模式（客户端发送stream）
+    rpc GetNxinMethod(StudentRequest)returns(stream ResultResponse){};//服务端流模式（从服务端返回stream）
+    rpc GetStudent(stream StudentRequest)returns(stream ResultResponse){};//双向流模式
+}
